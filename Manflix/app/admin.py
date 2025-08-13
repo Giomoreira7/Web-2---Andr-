@@ -1,8 +1,11 @@
 from django.contrib import admin
 from .models import *
-
-admin.site.register(Movies)
-admin.site.register(Plans)
-admin.site.register(Directors)
-# Register your models here.
  
+class MovieAdmin(admin.ModelAdmin):
+    list_display = ('title','category') #colocamos o que queremos que aparece de primeira mão no banco
+    search_fields = ('title','category') # como vamo buscar os filmes
+ 
+ 
+admin.site.register(Directors)
+admin.site.register(Movies,MovieAdmin)
+admin.site.register(Plans)

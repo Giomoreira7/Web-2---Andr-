@@ -13,7 +13,11 @@ CATEGORIES = [
 ]
 
 class Directors(models.Model):
-   name = models.CharField(max_length=400,null=False,blank=False)   
+   name = models.CharField(max_length=400,null=False,blank=False)  
+
+   def __str__(self):
+      return self.name 
+
 
 class Movies(models.Model):
    title = models.CharField(max_length=400,null=False,blank=False)
@@ -24,8 +28,13 @@ class Movies(models.Model):
    directors = models.ManyToManyField(Directors)
    classification = models.IntegerField()
 
+   def __str__(self):
+      return self.title 
+
+
 class Plans(models.Model):
    name = models.CharField(max_length=200,null=False,blank=False)
    price = models.DecimalField(max_digits=6,decimal_places=2)
 
-  
+   def __str__(self):
+      return self.name 
