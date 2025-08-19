@@ -6,6 +6,7 @@ class CustomUserAdmin(UserAdmin):
     model = CustomUser
     list_display = ['id','email','cpf']
     search_fields = ['email','cpf']
+    ordering = ['email']
 
 
 class MovieAdmin(admin.ModelAdmin):
