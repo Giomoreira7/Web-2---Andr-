@@ -1,4 +1,28 @@
 from django.db import models
+from .user_maneger import CustomUserManager
+from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
+
+
+class CustomUser(AbstractBaseUser, PermissionsMixin):
+   name = models.CharField(max_length=150)
+   email = models.EmailField(unique=True)
+   cpf = models.CharField(max_length=12, unique=True)
+   phone_number = models.CharField(max_length=15, null=True, blank=True, unique=True)
+   birth_date = models.DateField(null=True, blank=True)
+
+   is_staff = models.BooleanField(default=False)
+   is_active = models.BooleanField(default=True)
+   
+   USERNAME_FIELD = "email"
+   REQUIRED_FIELDS = []
+   
+   # usa o gerenciador criado
+   objects = CustomUserManager()
+
+   def __str__(self):
+      return self.name
+
+
 
 # Create your models here.
 
