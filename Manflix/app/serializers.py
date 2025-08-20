@@ -18,3 +18,10 @@ class PlansSerializer(serializers.ModelSerializer):
         model = Plans
         fields = '__all__'
         many = True
+
+
+class FavoriteMoviesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = FavoriteMovies
+        fields = '__all__'
+        many = True

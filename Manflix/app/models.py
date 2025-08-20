@@ -62,3 +62,10 @@ class Plans(models.Model):
 
    def __str__(self):
       return self.name 
+   
+class FavoriteMovies(models.Model):
+   movie_FK = models.ForeignKey(Movies, related_name="FavoriteMovies_movie_FK", on_delete=models.CASCADE)
+   user_FK = models.ForeignKey(CustomUser, related_name="FavoriteMovies_user_FK", on_delete=models.CASCADE)
+   
+   def __str__(self):
+      return self.movie_FK.title
