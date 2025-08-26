@@ -27,38 +27,42 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
 class Token(models.Model):
     nome = models.CharField(max_length=100)
-    simbolo = models.CharField(max_length=10)
-    valor = models.DecimalField(max_digits=20, decimal_places=8)  # exemplo para valor token
-    
+    data_criacao = models.DateField()
+    data_insercao = models.DateField(auto_now_add=True)
+    codigo = models.CharField(max_length=10, unique=True)
+    descricao = models.TextField()
+    valor_em_mangecoin = models.DecimalField(max_digits=20, decimal_places=8)
+
     def __str__(self):
-        return f"{self.nome} ({self.simbolo})"
+        return f"{self.nome} ({self.codigo})"
 
 
 class UserToken(models.Model):
-    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    token = models.ForeignKey(Token, on_delete=models.CASCADE)
+    user_email = models.CharField(max_length=255)  # Armazena o email do usuário manualmente
+    token_codigo = models.CharField(max_length=10)  # Armazena o código do token manualmente
     quantidade = models.DecimalField(max_digits=20, decimal_places=8, default=0)
-    
+
     def __str__(self):
-        return f"{self.user.email} - {self.token.simbolo}: {self.quantidade}"
+        return f"{self.user_email} - {self.token_codigo}: {self.quantidade}"
 
 
 class Transaction(models.Model):
-    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    token = models.ForeignKey(Token, on_delete=models.CASCADE)
+    user_email = models.CharField(max_length=255)     # Armazena o email do usuário
+    token_codigo = models.CharField(max_length=10)   # Armazena o código do token
     quantidade = models.DecimalField(max_digits=20, decimal_places=8)
     data_transacao = models.DateTimeField(auto_now_add=True)
     tipo = models.CharField(max_length=10, choices=(('compra', 'Compra'), ('venda', 'Venda')))
-    
+
     def __str__(self):
-        return f"{self.tipo} - {self.user.email} - {self.token.simbolo} - {self.quantidade}"
+        return f"{self.tipo} - {self.user_email} - {self.token_codigo } - {self.quantidade}"
+
 
 
 class UserGamePlay(models.Model):
-    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    user_email = models.EmailField(max_length=255)
     jogo = models.CharField(max_length=100)
     pontuacao = models.IntegerField()
     data_jogo = models.DateTimeField(auto_now_add=True)
     
     def __str__(self):
-        return f"{self.user.email} - {self.jogo} - {self.pontuacao}"
+        return f"{self.user_email} - {self.jogo} - {self.pontuacao}"
