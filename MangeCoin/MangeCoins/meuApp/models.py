@@ -9,7 +9,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     data_nascimento = models.DateField(("Data de nascimento"))
     endereco_completo = models.TextField(("Endereço completo"))
     telefone = models.CharField(("Telefone"), max_length=20)
-    foto = models.URLField(("Foto (URL)"), blank=True, null=True)  # foto opcional (link externo)
+    foto = models.URLField(("Foto (URL)"), blank=True, null=True)  
     
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
