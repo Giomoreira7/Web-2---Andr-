@@ -1,8 +1,8 @@
 
 from django.shortcuts import render
 from rest_framework import viewsets
-from .models import CustomUser, Token, UserToken, Transaction, UserGamePlay
-from .serializers import UserSerializer, TokenSerializer, UserTokenSerializer, TransactionSerializer, UserGamePlaySerializer
+from .models import *
+from .serializers import *
 
 class UserViewSet(viewsets.ModelViewSet):
     queryset = CustomUser.objects.all()
@@ -11,6 +11,11 @@ class UserViewSet(viewsets.ModelViewSet):
 class TokenViewSet(viewsets.ModelViewSet):
     queryset = Token.objects.all()
     serializer_class = TokenSerializer
+
+class AccountViewSet(viewsets.ModelViewSet):
+    queryset = Account.objects.all()
+    serializer_class = TokenSerializer
+
 
 class UserTokenViewSet(viewsets.ModelViewSet):
     queryset = UserToken.objects.all()

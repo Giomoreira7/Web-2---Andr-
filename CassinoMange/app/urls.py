@@ -9,6 +9,4 @@ router.register(r'usertokens', UserTokenViewSet)
 router.register(r'transactions', TransactionViewSet)
 router.register(r'usergameplays', UserGamePlayViewSet)
 
-urlpatterns = [
-    path('', include(router.urls)),
-]
+urlpatterns = router.urls

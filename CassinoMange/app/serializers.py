@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import CustomUser, Token, UserToken, Transaction, UserGamePlay
+from .models import *
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -9,6 +9,11 @@ class UserSerializer(serializers.ModelSerializer):
 class TokenSerializer(serializers.ModelSerializer):
     class Meta:
         model = Token
+        fields = '__all__'
+
+class AccountSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Account
         fields = '__all__'
 
 class UserTokenSerializer(serializers.ModelSerializer):

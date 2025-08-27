@@ -2,26 +2,47 @@ from django.contrib.auth.models import BaseUserManager
 
 class CustomUserManager(BaseUserManager):
 
-    def create_user(self, email, password=None, cpf=None, rg=None, data_nascimento=None, rua=None, telefone=None, foto=None, **extra_fields):
-        if None in (email, password, cpf, rg, data_nascimento, rua, telefone):
+
+    def create_user(self, name, email, password, cpf, rg, birth_date,
+                       address_street, address_district, address_number,
+                       address_zip_code, address_city, address_state, 
+                       address_country, phone, **extra_fields):
+        if None in (name, email, password, cpf, rg, birth_date,
+                       address_street, address_district, address_number,
+                       address_zip_code, address_city, address_state, 
+                       address_country, phone):
             raise ValueError("Campos obrigatórios não informados!")
-        email_normalized = self.normalize_email(email)
+        
         extra_fields.setdefault("is_active", True)
+        email=self.normalize_email(email)
         user = self.model(
-            email=email_normalized,
-            cpf=cpf,
-            rg=rg,
-            data_nascimento=data_nascimento,
-            rua=rua,
-            telefone=telefone,
-            foto=foto,
-            **extra_fields
+            name=name, 
+            cpf=cpf, 
+            rg=rg, 
+            birth_date=birth_date,
+             address_street=address_street, 
+             address_district=address_district,
+             address_number=address_number, 
+             address_zip_code=address_zip_code,
+             address_city=address_city,
+             address_state=address_state,
+             address_country=address_country, 
+             phone=phone,
+             **extra_fields
         )
         user.set_password(password)
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, email, password=None, cpf=None, rg=None, data_nascimento=None, rua=None, telefone=None, foto=None, **extra_fields):
+    def create_superuser (self, name, email, password, cpf, rg, birth_date,
+                       address_street, address_district, address_number,
+                       address_zip_code, address_city, address_state, 
+                       address_country, phone, **extra_fields):
         extra_fields.setdefault("is_staff", True)
+
         extra_fields.setdefault("is_superuser", True)
-        return self.create_user(email, password, cpf, rg, data_nascimento, rua, telefone, foto, **extra_fields)
+
+        return self.create_user(name, email, password, cpf, rg, birth_date,
+                       address_street, address_district, address_number,
+                       address_zip_code, address_city, address_state, 
+                       address_country, phone, **extra_fields);
