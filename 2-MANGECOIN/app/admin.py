@@ -20,13 +20,9 @@ class AdminCustomUser(UserAdmin):
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
-            'fields': ('email', 'name', 'cpf', 'rg', 'birth_date', 'address_street', 'address_district', 'address_number',
-                       'address_zip_code', 'address_city', 'address_state', 
-                       'address_country','phone','password1', 'password2'),
+            'fields': ('email', 'name', 'cpf', 'rg', 'password1', 'password2'),
         }),
     )
-    
-                       
     ordering = ['email']
 
 admin.site.register(CustomUser, AdminCustomUser)

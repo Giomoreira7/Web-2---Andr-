@@ -4,6 +4,7 @@ from rest_framework.views import APIView
 from .models import *
 from .serializers import *
 from rest_framework.response import Response
+from random import randint
 
 class CustomUserView(ModelViewSet):
     queryset = CustomUser.objects.all()
@@ -33,4 +34,12 @@ class TransactionsView(ModelViewSet):
 class BetTryView(APIView):
     def get(self, request):
         #logic
-        return Response(status=200, data='Teste')
+        value1 = randint(0,4)
+        value2 = randint(0,4)
+        value3 = randint(0,4)
+
+        return Response(status=200, data={
+            'bet1': value1,
+            'bet2': value2,
+            'bet3': value3,
+        })
